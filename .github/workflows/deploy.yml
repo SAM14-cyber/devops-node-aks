@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
+    name: Build and Push Docker Image
     runs-on: ubuntu-latest
 
     steps:
@@ -33,18 +34,45 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
 
+  terraform:
+    name: Terraform Deploy
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Docker (required by Terraform Docker provider)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          docker --version
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
 
-      - name: Terraform Init
-        run: cd terraform && terraform init
+      - name: Initialize Terraform
+        working-directory: ./terraform
+        run: terraform init
 
-      - name: Terraform Apply
-        run: cd terraform && terraform apply -auto-approve
+      - name: Apply Terraform
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
 
-      # ✅ Add this step to install Railway CLI
-      - name: Install Railway CLI
-        run: npm install -g railway
+  deploy-railway:
+    name: Deploy to Railway
+    runs-on: ubuntu-latest
+    needs: terraform
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI (new version)
+        run: npm install -g @railway/cli
 
       - name: Deploy to Railway
         run: railway up --ci
