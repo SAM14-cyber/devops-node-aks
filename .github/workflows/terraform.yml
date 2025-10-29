@@ -12,16 +12,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ✅ Docker is preinstalled — just check it instead of reinstalling
+      # ✅ Log in to Docker Hub
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # ✅ Verify Docker installation
       - name: Verify Docker Installation
         run: |
           docker --version
           docker info
 
-      # ✅ Pull your image from Docker Hub
+      # ✅ Pull the image from Docker Hub (your username is samj4)
       - name: Pull Docker image
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
+          docker pull samj4/devops-node-aks:latest
           docker images
 
       # ✅ Set up Terraform
@@ -30,10 +34,12 @@ jobs:
         with:
           terraform_version: 1.9.5
 
+      # ✅ Initialize Terraform
       - name: Initialize Terraform
         working-directory: ./terraform
         run: terraform init
 
+      # ✅ Apply Terraform configuration
       - name: Apply Terraform
         working-directory: ./terraform
         run: terraform apply -auto-approve

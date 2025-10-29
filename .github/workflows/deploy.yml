@@ -6,24 +6,21 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
-
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -31,28 +28,21 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest .
+
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
 
   terraform:
     name: Terraform Deploy
     runs-on: ubuntu-latest
-    needs: build-and-deploy
+    needs: build-and-push
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # ✅ Docker is already installed — just verify it
-      - name: Verify Docker installation
-        run: |
-          docker --version
-          docker ps || true
-
-      - name: Pull Docker image
-        run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
-          docker images
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
