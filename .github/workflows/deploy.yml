@@ -17,4 +17,4 @@ jobs:
         uses: railwayapp/railway-deploy@v1.0.20
         with:
           railwayToken: ${{ secrets.RAILWAY_TOKEN }}
-          serviceId: devops-node-aks
+          serviceId: e5246a99-0c6f-43bd-89b1-0a64b0d388aa
