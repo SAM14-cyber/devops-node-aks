@@ -7,16 +7,21 @@ jobs:
   terraform:
     name: Terraform Deploy
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Docker (for Docker provider)
+      - name: Install Docker
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sudo sh get-docker.sh
           docker --version
+
+      - name: Pull Docker image
+        run: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
+          docker images
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
