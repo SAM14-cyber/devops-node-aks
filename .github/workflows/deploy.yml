@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,10 +40,18 @@ jobs:
         with:
           terraform_version: 1.7.0
 
+      - name: Check directory before init
+        run: |
+          echo "Current path: $(pwd)"
+          echo "Listing all files:"
+          ls -R
+
       - name: Terraform Init
+        working-directory: ../terraform
         run: terraform init
 
       - name: Terraform Apply
+        working-directory: ../terraform
         run: terraform apply -auto-approve
 
   deploy-railway:
