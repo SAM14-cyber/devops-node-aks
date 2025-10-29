@@ -28,6 +28,6 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway login --token $RAILWAY_TOKEN
+          railway login --ci
           railway link --project 3ef987a0-339b-4521-932f-a7e5f21951ec
           railway up --service devops-node-aks --ci
