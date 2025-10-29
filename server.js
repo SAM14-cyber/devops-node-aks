@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 8080; // ✅ USE THIS
 
 app.get("/", (req, res) => {
-  res.send("✅ DevOps CI/CD Pipeline with Node.js on AKS!");
+  res.send("Hello Railway Deployment Worked!");
 });
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
