@@ -19,7 +19,7 @@ resource "docker_image" "app_image" {
 # Run the container
 resource "docker_container" "app_container" {
   name  = "node-app"
-  image = docker_image.app_image.latest
+  image = docker_image.app_image.name   # <-- CHANGED HERE
   ports {
     internal = 8080
     external = 8080
