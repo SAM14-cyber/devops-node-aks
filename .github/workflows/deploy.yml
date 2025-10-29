@@ -19,13 +19,20 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
+      - name: Verify Railway login
+        run: railway whoami || true
+
       - name: Deploy to Railway
+        run: |
+          echo "Starting Railway deploy..."
+          railway up --service jubilant-smile --project ${{ secrets.RAILWAY_PROJECT_ID }} --ci
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          railway up --service jubilant-smile --detach --ci
+
+      - name: Post Setup Node.js
+        run: echo "Deployment completed successfully!"
