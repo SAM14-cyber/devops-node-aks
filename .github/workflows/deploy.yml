@@ -18,28 +18,20 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
       - name: Verify Railway login
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          railway whoami || echo "Railway authentication failed"
-
-      - name: Run migrations (optional)
-        run: |
-          echo "Running pre-deploy migrations..."
-          npm run migrate || echo "No migrations found"
+        run: railway whoami
 
       - name: Deploy to Railway (non-interactive)
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           echo "Starting Railway deploy..."
-          railway up --service jubilant-smile --environment production --detach --yes
-          echo "✅ Deployment completed."
-
-      - name: Start application
-        run: |
-          npm run start
+          railway up --service jubilant-smile --detach --ci
