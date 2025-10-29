@@ -1,70 +1,45 @@
-name: CI/CD Pipeline
+name: Terraform Deploy
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
   terraform:
-    name: Terraform Init & Apply
+    name: Terraform Deploy
     runs-on: ubuntu-latest
-    needs: build
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Terraform
+      # ✅ Log in to Docker Hub
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # ✅ Verify Docker installation
+      - name: Verify Docker Installation
+        run: |
+          docker --version
+          docker info
+
+      # ✅ Pull Docker image (correct username)
+      - name: Pull Docker image
+        run: |
+          docker pull samj4/devops-node-aks:latest
+          docker images
+
+      # ✅ Set up Terraform
+      - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.7.0
+          terraform_version: 1.9.5
 
-      - name: Terraform Init
+      # ✅ Initialize Terraform
+      - name: Initialize Terraform
         working-directory: ./terraform
         run: terraform init
 
-      - name: Terraform Apply
+      # ✅ Apply Terraform
+      - name: Apply Terraform
         working-directory: ./terraform
         run: terraform apply -auto-approve
-
-  deploy-railway:
-    name: Deploy to Railway
-    runs-on: ubuntu-latest
-    needs: terraform
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy jubilant-smile service
-        run: railway up --ci --service jubilant-smile
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
-      - name: Deploy devops-node-aks service
-        run: railway up --ci --service devops-node-aks
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
