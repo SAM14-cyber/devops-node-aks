@@ -2,22 +2,20 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 3.0"
+      version = "~> 3.0.1"
     }
   }
 }
 
 provider "docker" {}
 
-# Pull the image from Docker Hub
 resource "docker_image" "app_image" {
   name = var.image_name
 }
 
-# Run container from pulled image
 resource "docker_container" "app_container" {
-  name  = "devops_app_container"
-  image = docker_image.app_image.image_id
+  name  = "devops-node-aks"
+  image = docker_image.app_image.latest
   ports {
     internal = 8080
     external = 8080
