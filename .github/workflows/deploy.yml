@@ -22,12 +22,12 @@ jobs:
         run: npm install
 
       - name: Install Railway CLI
-        run: npm install -g @railway/cli
+        run: npm install -g @railway/cli@latest
 
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway login --ci
+          echo "$RAILWAY_TOKEN" | railway login
           railway link --project 3ef987a0-339b-4521-932f-a7e5f21951ec
-          railway up --service devops-node-aks --ci
+          railway up --service devops-node-aks
