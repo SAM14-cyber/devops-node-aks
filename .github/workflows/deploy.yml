@@ -25,7 +25,10 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest .
 
       - name: Log in to Docker Hub
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
