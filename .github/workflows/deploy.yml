@@ -21,4 +21,4 @@ jobs:
       - name: Deploy using Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.K_1 }}
-        run: railway up --ci
+        run: railway up --ci --service devops-node-aks
