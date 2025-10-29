@@ -3,7 +3,7 @@ name: Deploy to Railway
 on:
   push:
     branches:
-      - main
+      - main  # triggers deploy only when pushing to main branch
 
 jobs:
   deploy:
