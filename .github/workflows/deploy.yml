@@ -10,13 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy to Railway
-        uses: railwayapp/railway-deploy@v1.0.20
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
-          serviceId: e5246a99-0c6f-43bd-89b1-0a64b0d388aa
-          buildCommand: npm run migrate
-          startCommand: npm run start
+          node-version: 18
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Run migrations before deploy
+        run: |
+          echo "Running pre-deploy migrations..."
+          npm run migrate || echo "No migrations to run"
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "Deploying service jubilant-smile..."
+          railway up \
+            --service jubilant-smile \
+            --service-id e5246a99-0c6f-43bd-89b1-0a64b0d388aa \
+            --environment production \
+            --ci
+
+      - name: Post-deploy start command
+        run: |
+          echo "Starting app..."
+          npm run start
