@@ -18,3 +18,5 @@ jobs:
         with:
           railwayToken: ${{ secrets.RAILWAY_TOKEN }}
           serviceId: e5246a99-0c6f-43bd-89b1-0a64b0d388aa
+          buildCommand: npm run migrate
+          startCommand: npm run start
