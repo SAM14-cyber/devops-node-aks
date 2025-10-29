@@ -21,23 +21,25 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Run migrations before deploy
-        run: |
-          echo "Running pre-deploy migrations..."
-          npm run migrate || echo "No migrations to run"
-
-      - name: Deploy to Railway
+      - name: Verify Railway login
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          echo "Deploying service jubilant-smile..."
-          railway up \
-            --service jubilant-smile \
-            --service-id e5246a99-0c6f-43bd-89b1-0a64b0d388aa \
-            --environment production \
-            --ci
+          railway whoami || echo "Railway authentication failed"
 
-      - name: Post-deploy start command
+      - name: Run migrations (optional)
         run: |
-          echo "Starting app..."
+          echo "Running pre-deploy migrations..."
+          npm run migrate || echo "No migrations found"
+
+      - name: Deploy to Railway (non-interactive)
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "Starting Railway deploy..."
+          railway up --service jubilant-smile --environment production --detach --yes
+          echo "✅ Deployment completed."
+
+      - name: Start application
+        run: |
           npm run start
