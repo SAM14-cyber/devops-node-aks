@@ -42,6 +42,10 @@ jobs:
       - name: Terraform Apply
         run: cd terraform && terraform apply -auto-approve
 
+      # ✅ Add this step to install Railway CLI
+      - name: Install Railway CLI
+        run: npm install -g railway
+
       - name: Deploy to Railway
         run: railway up --ci
         env:
