@@ -43,11 +43,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Docker (required by Terraform Docker provider)
+      # ✅ Docker is already installed — just verify it
+      - name: Verify Docker installation
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
           docker --version
+          docker ps || true
+
+      - name: Pull Docker image
+        run: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/devops-node-aks:latest
+          docker images
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
@@ -71,7 +76,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Railway CLI (new version)
+      - name: Install Railway CLI
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
