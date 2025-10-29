@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -18,22 +18,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Run Migrations (optional)
-        run: npm run migrate
-        continue-on-error: true
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
 
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: 3ef987a0-339b-4521-932f-a7e5f21951ec
-          RAILWAY_ENVIRONMENT_ID: b4540af5-aba9-4bd4-bf73-7b176f7742c3
-          RAILWAY_SERVICE_ID: 0b64a825-ce3e-4455-ba82-f268d80f837e
         run: |
-          npx railway up \
-            --service=$RAILWAY_SERVICE_ID \
-            --environment=$RAILWAY_ENVIRONMENT_ID \
-            --project=$RAILWAY_PROJECT_ID \
-            --yes
+          railway link --project 3ef987a0-339b-4521-932f-a7e5f21951ec
+          railway up --service devops-node-aks --ci
