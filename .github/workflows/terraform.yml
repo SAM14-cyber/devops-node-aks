@@ -22,7 +22,7 @@ jobs:
           docker --version
           docker info
 
-      # ✅ Pull Docker image (correct username)
+      # ✅ Pull the image from Docker Hub (your username is samj4)
       - name: Pull Docker image
         run: |
           docker pull samj4/devops-node-aks:latest
@@ -39,7 +39,7 @@ jobs:
         working-directory: ./terraform
         run: terraform init
 
-      # ✅ Apply Terraform
+      # ✅ Apply Terraform configuration
       - name: Apply Terraform
         working-directory: ./terraform
         run: terraform apply -auto-approve
