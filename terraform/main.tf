@@ -2,26 +2,23 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 3.0.2"
+      version = "~> 3.0.1"
     }
   }
-
-  required_version = ">= 1.3.0"
 }
 
 provider "docker" {}
 
-# Pull your Docker image
 resource "docker_image" "app_image" {
-  name = "sam14/devops-node-aks:latest"
+  name         = "nginx:latest"
+  keep_locally = false
 }
 
-# Run the container
 resource "docker_container" "app_container" {
-  name  = "node-app"
-  image = docker_image.app_image.name   # <-- CHANGED HERE
+  name  = "nginx_container"
+  image = docker_image.app_image.image_id
   ports {
-    internal = 8080
+    internal = 80
     external = 8080
   }
 }
