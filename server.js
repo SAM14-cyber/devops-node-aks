@@ -14,7 +14,7 @@ app.get("/api/movies", (req, res) => {
   res.json([
     { title: "Inception", desc: "Dream within a dream thriller", image: "/images/inception.jpg" },
     { title: "Interstellar", desc: "Journey through space and time", image: "/images/interstellar.jpg" },
-    { title: "The Dark Knight", desc: "Batman faces the Joker", image: "/images/darkknight.jpg" }
+    { title: "The Dark Knight", desc: "Batman faces the Joker", image: "/images/the dark knight.jpg" }
   ]);
 });
 
