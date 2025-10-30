@@ -15,6 +15,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
     list.appendChild(card);
   });
-
-  console.log("🎬 Movies loaded successfully!");
 });

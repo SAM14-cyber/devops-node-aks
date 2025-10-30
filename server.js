@@ -1,29 +1,15 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
+const PORT = 8080;
 
-const port = process.env.PORT || 8080;
-
-// ✅ Serve frontend
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ✅ API route for movies
-app.get("/api/movies", (req, res) => {
-  res.json([
-    { title: "Inception", desc: "Dream within a dream thriller", image: "/images/inception.jpg" },
-    { title: "Interstellar", desc: "Journey through space and time", image: "/images/interstellar.jpg" },
-    { title: "The Dark Knight", desc: "Batman faces the Joker", image: "/images/the dark knight.jpg" }
-  ]);
-});
-
-// Health route
-app.get("/health", (req, res) => {
-  res.json({ status: "UP" });
-});
-
-app.listen(port, () => {
-  console.log(`🚀 App running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`🎥 Server running at http://localhost:${PORT}`);
 });
