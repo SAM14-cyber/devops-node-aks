@@ -59,6 +59,6 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy Application to Railway
-        run: railway up --ci --service movie-webapp
+        run: railway up --ci --service devops-node-aks
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
