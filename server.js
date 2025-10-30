@@ -3,13 +3,14 @@ const app = express();
 
 const port = process.env.PORT || 8080;
 
-// Serve static files (UI)
+// ✅ Serve frontend
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+// ✅ API route for movies
 app.get("/api/movies", (req, res) => {
   res.json([
     { title: "Inception", desc: "Dream within a dream thriller", image: "/images/inception.jpg" },
@@ -18,10 +19,11 @@ app.get("/api/movies", (req, res) => {
   ]);
 });
 
+// Health route
 app.get("/health", (req, res) => {
   res.json({ status: "UP" });
 });
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}`);
+  console.log(`🚀 App running on port ${port}`);
 });
