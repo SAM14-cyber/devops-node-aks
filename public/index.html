@@ -3,13 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie Browser</title>
+  <title>Movie Recommendation System</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🎬 Movie Browser</h1>
-  <button id="loadMovies">Load Movies</button>
-  <div id="movieList" class="movie-grid"></div>
+  <nav class="navbar">
+    <div class="logo">🎬 CineScope</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Movies</a></li>
+      <li><a href="#">Categories</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Admin</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <h1>Discover Movies You’ll Love</h1>
+    <p>Explore personalized recommendations across genres and moods.</p>
+    <button id="loadMovies">Load Movie Recommendations</button>
+  </header>
+
+  <main id="movieList" class="movie-container">
+    <!-- Movies will appear here -->
+  </main>
+
+  <section class="categories">
+    <h2>Top Categories</h2>
+    <div class="category">
+      <h3>🔥 Trending Now</h3>
+      <div class="movie-grid">
+        <div class="movie-card"><img src="" alt=""><h4>Movie 1</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 2</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 3</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 4</h4></div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>🎭 Drama</h3>
+      <div class="movie-grid">
+        <div class="movie-card"><img src="" alt=""><h4>Movie 5</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 6</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 7</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 8</h4></div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>💥 Action</h3>
+      <div class="movie-grid">
+        <div class="movie-card"><img src="" alt=""><h4>Movie 9</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 10</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 11</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 12</h4></div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>💞 Romance</h3>
+      <div class="movie-grid">
+        <div class="movie-card"><img src="" alt=""><h4>Movie 13</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 14</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 15</h4></div>
+        <div class="movie-card"><img src="" alt=""><h4>Movie 16</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 CineScope. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
