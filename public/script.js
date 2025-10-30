@@ -6,7 +6,7 @@ document.getElementById("loadMovies").addEventListener("click", async () => {
 
   movies.forEach(m => {
     const card = document.createElement("div");
-    card.className = "movie-card";
+    card.className = "movie-card fade-in";
     card.innerHTML = `
       <img src="${m.image || ''}" alt="${m.title}">
       <h3>${m.title}</h3>

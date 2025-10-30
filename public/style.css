@@ -1,103 +1,170 @@
-body {
+/* === Global Reset === */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #1a1a1d, #3a0ca3);
-  color: #fff;
+  padding: 0;
 }
 
-/* Navbar */
+body {
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* === Navbar === */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 1rem 2.5rem;
   position: sticky;
   top: 0;
-  z-index: 10;
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.navbar .logo {
+.logo {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  color: #ff2e63;
+  letter-spacing: 1px;
 }
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 1.5rem;
+  list-style: none;
+  gap: 1.8rem;
 }
 .nav-links a {
   color: #fff;
   text-decoration: none;
-  transition: color 0.3s;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 .nav-links a:hover {
-  color: #f72585;
+  color: #ff2e63;
 }
 
-/* Hero */
+/* === Hero Section === */
 .hero {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem 3rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), transparent);
 }
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 46, 99, 0.6);
+}
+.hero p {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-bottom: 2rem;
 }
 .hero button {
-  background: #f72585;
+  background: #ff2e63;
   border: none;
-  padding: 0.8rem 1.5rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
   color: #fff;
-  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 46, 99, 0.5);
 }
 .hero button:hover {
-  background: #b5179e;
+  background: #e61e4d;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 46, 99, 0.8);
 }
 
-/* Movie grid */
+/* === Movie Container === */
 .movie-container, .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.2rem;
-  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2.5rem;
+  justify-items: center;
 }
+
+/* === Movie Card === */
 .movie-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
   padding: 1rem;
+  width: 100%;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.movie-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  backdrop-filter: blur(6px);
 }
 .movie-card img {
   width: 100%;
-  height: 230px;
-  border-radius: 10px;
-  background: #333;
+  height: 270px;
   object-fit: cover;
-  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.4s ease;
+}
+.movie-card h3, .movie-card h4 {
+  color: #ff2e63;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+.movie-card p {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 46, 99, 0.4);
+}
+.movie-card:hover img {
+  transform: scale(1.08);
 }
 
-/* Categories */
+/* === Categories === */
 .categories {
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.3);
+  padding: 3rem 2rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .categories h2 {
   text-align: center;
   margin-bottom: 2rem;
+  font-size: 2rem;
+  text-shadow: 0 0 10px rgba(255, 46, 99, 0.5);
+}
+.category {
+  margin-bottom: 3rem;
+}
+.category h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  border-left: 4px solid #ff2e63;
+  padding-left: 10px;
 }
 
-/* Footer */
+/* === Footer === */
 footer {
+  background: rgba(0, 0, 0, 0.85);
   text-align: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.9);
-  margin-top: 3rem;
+  padding: 1.2rem;
+  color: #999;
   font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* === Animation === */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
