@@ -1,12 +1,13 @@
-document.getElementById("loadMovies").addEventListener("click", async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const res = await fetch("/api/movies");
   const movies = await res.json();
+
   const list = document.getElementById("movieList");
   list.innerHTML = "";
 
   movies.forEach(m => {
     const card = document.createElement("div");
-    card.className = "movie-card fade-in";
+    card.className = "movie-card";
     card.innerHTML = `
       <img src="${m.image}" alt="${m.title}">
       <h3>${m.title}</h3>
@@ -15,5 +16,5 @@ document.getElementById("loadMovies").addEventListener("click", async () => {
     list.appendChild(card);
   });
 
-  console.log("🎬 Movie Recommendation UI Loaded");
+  console.log("🎬 Movies loaded successfully!");
 });
