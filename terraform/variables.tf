@@ -1,10 +1,10 @@
-variable "dockerhub_user" {
-  description = "Docker Hub username"
+variable "docker_user" {
+  description = "Docker username"
   type        = string
 }
 
-variable "dockerhub_pass" {
-  description = "Docker Hub password"
+variable "docker_pass" {
+  description = "Docker password"
   type        = string
   sensitive   = true
 }
