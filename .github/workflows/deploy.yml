@@ -51,8 +51,8 @@ jobs:
         run: |
           terraform init -input=false
           terraform apply -auto-approve \
-            -var "dockerhub_user=${{ secrets.DOCKER_USER }}" \
-            -var "dockerhub_pass=${{ secrets.DOCKER_PASS }}"
+            -var "docker_user=${{ secrets.DOCKER_USER }}" \
+            -var "docker_pass=${{ secrets.DOCKER_PASS }}"
 
   post-setup:
     name: Post Set up Docker
