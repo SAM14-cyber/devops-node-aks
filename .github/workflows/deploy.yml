@@ -31,7 +31,10 @@ jobs:
         run: terraform -chdir=terraform init
 
       - name: Apply Terraform (Deploy)
-        run: terraform -chdir=terraform apply -auto-approve
+        run: terraform -chdir=terraform apply -auto-approve \
+          -var="dockerhub_user=${{ secrets.DOCKER_USERNAME }}" \
+          -var="dockerhub_pass=${{ secrets.DOCKER_PASSWORD }}"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+

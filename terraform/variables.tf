@@ -1,8 +1,10 @@
-variable "aws_region" {
-  default = "ap-south-1"
+variable "dockerhub_user" {
+  description = "Docker Hub username"
+  type        = string
 }
 
-variable "docker_image" {
-  description = "Docker image to deploy"
-  default     = "<samj4>/frontend:latest"
+variable "dockerhub_pass" {
+  description = "Docker Hub password"
+  type        = string
+  sensitive   = true
 }
