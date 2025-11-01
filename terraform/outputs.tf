@@ -1,7 +1,7 @@
-output "container_id" {
-  value = docker_container.app_container.id
+output "public_ip" {
+  value = aws_instance.frontend.public_ip
 }
 
-output "image_id" {
-  value = docker_image.app_image.image_id
+output "public_dns" {
+  value = aws_instance.frontend.public_dns
 }
